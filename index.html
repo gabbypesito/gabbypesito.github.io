@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Meme App</title>
+</head>
+<body>
+    <h1>Weather Meme App</h1>
+    <div id="weather-info">
+        <p id="weather-description">Loading weather...</p>
+        <img id="meme" src="placeholder.jpg" alt="Weather Meme" style="max-width: 100%; height: auto;">
+    </div>
+
+    <script>
+        // Prompt the user for a city name
+        const city = prompt("Enter a city name:");
+
+        // Validate the city input
+        if (city) {
+            const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?latitude=47.6062&longitude=-122.3321&current=weathercode&timezone=America/Los_Angeles`;
+
+            // Function to fetch weather data from the API
+            async function fetchWeatherData() {
+                try {
+                    const response = await fetch(WEATHER_API_URL);
+                    const data = await response.json();
+                    const weatherCode = data.current.weathercode;
+                    const weatherDescription = getWeatherDescription(weatherCode);
+                    const memeUrl = getMeme(weatherCode);
+                    displayWeather(weatherDescription, memeUrl);
+                } catch (error) {
+                    console.error("Error fetching weather data:", error);
+                }
+            }
+
+            // Function to map weather code to description text
+            function getWeatherDescription(weatherCode) {
+                const weatherDescriptions = {
+                    0: "Clear sky",
+                    1: "Mainly clear",
+                    2: "Partly cloudy",
+                    3: "Overcast",
+                    45: "Fog",
+                    48: "Freezing fog",
+                    51: "Light drizzle",
+                    53: "Drizzle",
+                    55: "Heavy drizzle",
+                    56: "Light freezing drizzle",
+                    57: "Freezing drizzle",
+                    61: "Light rain",
+                    63: "Rain",
+                    65: "Heavy rain",
+                    66: "Light freezing rain",
+                    67: "Freezing rain",
+                    71: "Light snow",
+                    73: "Snow",
+                    75: "Heavy snow",
+                    77: "Snow grains",
+                    80: "Light rain shower",
+                    81: "Rain shower",
+                    82: "Heavy rain shower",
+                    85: "Snow shower",
+                    86: "Heavy snow shower",
+                    95: "Thunderstorm",
+                    96: "Hailstorm",
+                    99: "Heavy hailstorm"
+                };
+                return weatherDescriptions[weatherCode] || "Unknown weather condition";
+            }
+
+            // Function to map weather code to meme URL
+            function getMeme(weatherCode) {
+                const weatherToMemeMap = {
+                    0: "placeholder.jpg",   // Clear sky
+                    1: "placeholder.jpg",   // Mainly clear
+                    2: "placeholder.jpg",   // Partly cloudy
+                    3: "placeholder.jpg",   // Overcast
+                    45: "placeholder.jpg",  // Fog
+                    48: "placeholder.jpg",  // Freezing fog
+                    51: "placeholder.jpg",  // Light drizzle
+                    53: "placeholder.jpg",  // Drizzle
+                    55: "placeholder.jpg",  // Heavy drizzle
+                    56: "placeholder.jpg",  // Light freezing drizzle
+                    57: "placeholder.jpg",  // Freezing drizzle
+                    61: "placeholder.jpg",  // Light rain
+                    63: "placeholder.jpg",  // Rain
+                    65: "placeholder.jpg",  // Heavy rain
+                    66: "placeholder.jpg",  // Light freezing rain
+                    67: "placeholder.jpg",  // Freezing rain
+                    71: "placeholder.jpg",  // Light snow
+                    73: "placeholder.jpg",  // Snow
+                    75: "placeholder.jpg",  // Heavy snow
+                    77: "placeholder.jpg",  // Snow grains
+                    80: "placeholder.jpg",  // Light rain shower
+                    81: "placeholder.jpg",  // Rain shower
+                    82: "placeholder.jpg",  // Heavy rain shower
+                    85: "placeholder.jpg",  // Snow shower
+                    86: "placeholder.jpg",  // Heavy snow shower
+                    95: "placeholder.jpg",  // Thunderstorm
+                    96: "placeholder.jpg",  // Hailstorm
+                    99: "placeholder.jpg"   // Heavy hailstorm
+                };
+                return weatherToMemeMap[weatherCode] || "placeholder.jpg";
+            }
+
+            // Function to display weather description and meme
+            function displayWeather(description, memeUrl) {
+                document.getElementById("weather-description").textContent = `Weather in ${city}: ${description}`;
+                document.getElementById("meme").src = memeUrl;
+            }
+
+            // Fetch and display weather data
+            fetchWeatherData();
+        } else {
+            alert("City name is required.");
+        }
+    </script>
+</body>
+</html>

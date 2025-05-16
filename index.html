@@ -20,7 +20,7 @@
 
         // Validate the city input
         if (city) {
-            const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?latitude=47.6062&longitude=-122.3321&current=weathercode&timezone=America/Los_Angeles`;
+            const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?latitude=47.6062&longitude=-122.3321&current=weathercode&timezone=America/Seattle`;
 
             // Function to fetch weather data from the API
             async function fetchWeatherData() {
@@ -80,7 +80,7 @@
                     3: "placeholder.jpg",   // Overcast
                     45: "placeholder.jpg",  // Fog
                     48: "placeholder.jpg",  // Freezing fog
-                    51: "placeholder.jpg",  // Light drizzle
+                    51: "LightDrizzle.png",  // Light drizzle
                     53: "placeholder.jpg",  // Drizzle
                     55: "placeholder.jpg",  // Heavy drizzle
                     56: "placeholder.jpg",  // Light freezing drizzle
@@ -99,7 +99,7 @@
                     82: "placeholder.jpg",  // Heavy rain shower
                     85: "placeholder.jpg",  // Snow shower
                     86: "placeholder.jpg",  // Heavy snow shower
-                    95: "placeholder.jpg",  // Thunderstorm
+                    95: "ThunderStorm.jpg",  // Thunderstorm
                     96: "placeholder.jpg",  // Hailstorm
                     99: "placeholder.jpg"   // Heavy hailstorm
                 };
